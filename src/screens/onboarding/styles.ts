@@ -17,25 +17,29 @@ export const styles = StyleSheet.create({
     alignItems: alignItems.center,
     justifyContent: justifyContent.center,
     gap: spacing[10],
+    padding: spacing[5],
   },
   heading: {
-    fontFamily: fonts.medium,
+    fontFamily: fonts.semiBold,
     fontSize: fontSizes.heading.h3,
   },
   buttonContainer: {
     gap: spacing[4],
-    alignItems: alignItems.center,
-    justifyContent: justifyContent.center,
   },
   filledButton: {
-    backgroundColor: colorScheme.primary.greenBunny[50],
+    width: '100%',
   },
   outlinedButton: {
     backgroundColor: 'transparent',
     borderWidth: 1,
     borderColor: colorScheme.primary.greenBunny[50],
+    width: '100%',
   },
   buttonText: {
     color: colorScheme.primary.greenBunny[50],
+  },
+  container: {
+    width: '100%',
+    gap: spacing[4],
   },
 });

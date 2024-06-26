@@ -13,11 +13,13 @@ const {
 
 export const styles = StyleSheet.create({
   button: {
+    width: 'auto',
     backgroundColor: colorScheme.primary.greenBunny[50],
     paddingVertical: spacing[3],
     paddingHorizontal: spacing[5],
     borderRadius: borderRadius[2],
     alignItems: alignItems.center,
+    justifyContent: justifyContent.center,
   },
   text: {
     color: '#ffffff',

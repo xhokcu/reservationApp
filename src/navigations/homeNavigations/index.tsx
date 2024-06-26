@@ -1,30 +1,27 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { homeRoutes } from 'routes/homeRoutes';
-const Stack = createNativeStackNavigator();
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import homeRoutes from 'routes/homeRoutes';
+import { theme } from 'common/theme/theme';
+import { View } from 'react-native';
+
+const { colorScheme } = theme.components;
 
 export default function HomeNavigations() {
+  const Tab = createBottomTabNavigator();
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerBackTitle: 'Back',
-        headerShown: false,
-        headerTitleAlign: 'center',
-        headerTintColor: 'black',
-        headerStyle: { backgroundColor: '#D0261C' },
-        headerShadowVisible: false,
-        headerBackTitleVisible: false,
-      }}
-    >
-      {homeRoutes.map((item: any, index: any) => {
-        return (
-          <Stack.Screen
-            key={index}
-            name={item?.name}
-            component={item?.component}
-            options={item?.options}
-          />
-        );
-      })}
-    </Stack.Navigator>
+    <Tab.Navigator initialRouteName={homeRoutes[0].name}>
+      {homeRoutes.map(route => (
+        <Tab.Screen
+          name={route.name}
+          component={route.component}
+          options={{
+            tabBarActiveTintColor: colorScheme.primary.greenBunny[50],
+            tabBarIcon: ({ focused }) => <View>{route.icon({ focused })}</View>,
+            headerStyle: {
+              backgroundColor: 'white',
+            },
+          }}
+        />
+      ))}
+    </Tab.Navigator>
   );
 }

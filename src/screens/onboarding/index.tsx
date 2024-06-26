@@ -1,12 +1,19 @@
 import { View, Text } from 'react-native';
 import CustomButton from 'components/button';
 import { styles } from './styles';
+import { OnboardingImage, ListIcon } from 'assets/svg';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-const OnboardingScreen = ({ navigation }) => {
+interface OnboardingScreenProps {
+  navigation: StackNavigationProp<any, any>;
+}
+
+const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ navigation }) => {
   return (
     <View style={styles.screen}>
+      <OnboardingImage />
       <Text style={styles.heading}>Let's get started!</Text>
-      <View style={styles.buttonContainer}>
+      <View style={styles.container}>
         <CustomButton
           buttonStyle={styles.filledButton}
           title="Login"

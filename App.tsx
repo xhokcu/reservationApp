@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
+import { Provider } from 'react-redux';
 import { useFonts } from 'expo-font';
+import { store } from 'store/store';
 import { NavigationContainer } from '@react-navigation/native';
 
 import {
@@ -54,7 +56,9 @@ export default function App() {
   });
   return (
     <NavigationContainer>
-      <AppNavigations />
+      <Provider store={store}>
+        <AppNavigations />
+      </Provider>
     </NavigationContainer>
   );
 }

@@ -11,7 +11,7 @@ export const LOGIN_NAV = {
 
 export const HOME_NAV = {
   RESERVATIONS: 'Reservations',
-  RESERVATIONDETAILS: 'ReservationDetails',
-  CREATERESERVATION: 'CreateReservation',
+  RESERVATIONDETAILS: 'Reservation Details',
+  CREATERESERVATION: 'Create Reservation',
   MAP: 'Map',
 };
