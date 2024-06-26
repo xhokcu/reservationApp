@@ -4,9 +4,14 @@ import { styles } from './styles';
 import { useDispatch } from 'react-redux';
 import CustomButton from 'components/button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { login } from 'store/features/auth/authSlice'; // Doğru path'i kontrol edin
+import { login } from 'store/features/auth/authSlice';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-const LoginScreen = ({ navigation }) => {
+interface LoginScreenProps {
+  navigation: StackNavigationProp<any, any>;
+}
+
+const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 

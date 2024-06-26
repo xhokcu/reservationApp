@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
     flexDirection: flexDirection.row,
     paddingHorizontal: spacing[4],
     paddingVertical: spacing[2],
+    gap: spacing[4],
   },
   label: {
     flex: 1,

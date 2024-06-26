@@ -10,6 +10,7 @@ const ReservationCard: React.FC<IReservationCardProps> = ({
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
+        <Text style={styles.text}>{item.username}</Text>
         <Text style={styles.text}>{item.date}</Text>
         <Text style={styles.text}>{item.time}</Text>
         <Text style={styles.text}>{item.city}</Text>

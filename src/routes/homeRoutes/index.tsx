@@ -6,7 +6,7 @@ import ReservationsScreen from 'screens/reservations';
 import ReservationDetailsScreen from 'screens/reservationDetails';
 import CreateReservationScreen from 'screens/createReservation';
 import MapScreen from 'screens/map';
-import ListIcon from 'assets/svg/ListIcon'; // Assuming ListIcon is your SVG component
+import { ListIcon, MapIcon, CreateIcon } from 'assets/svg'; // Assuming ListIcon is your SVG component
 import { theme } from 'common/theme/theme';
 
 const { colorScheme } = theme.components;
@@ -29,24 +29,17 @@ const homeRoutes: INavigationRoute[] = [
     ),
   },
   {
-    name: HOME_NAV.RESERVATIONDETAILS,
-    component: ReservationDetailsScreen,
-    icon: ({ focused }: { focused: boolean }) => (
-      <ListIcon filled={focused ? activeColor : inactiveColor} />
-    ),
-  },
-  {
     name: HOME_NAV.CREATERESERVATION,
     component: CreateReservationScreen,
     icon: ({ focused }: { focused: boolean }) => (
-      <ListIcon filled={focused ? activeColor : inactiveColor} />
+      <CreateIcon filled={focused ? activeColor : inactiveColor} />
     ),
   },
   {
     name: HOME_NAV.MAP,
     component: MapScreen,
     icon: ({ focused }: { focused: boolean }) => (
-      <ListIcon filled={focused ? activeColor : inactiveColor} />
+      <MapIcon filled={focused ? activeColor : inactiveColor} />
     ),
   },
 ];

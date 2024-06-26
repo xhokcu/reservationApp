@@ -1,36 +1,29 @@
 import CustomButton from 'components/button';
 import { View, Text, FlatList } from 'react-native';
 import { styles } from './styles';
-import { useDispatch } from 'react-redux';
-import { logout } from 'store/features/auth/authSlice'; // Doğru path'i kontrol edin
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from 'store/features/auth/authSlice';
 import ReservationCard from 'components/card/reservationCard';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootState } from 'store/store';
 
-const ReservationsScreen = () => {
+interface ReservationsScreenProps {
+  navigation: StackNavigationProp<any, any>;
+}
+
+const ReservationsScreen: React.FC<ReservationsScreenProps> = ({
+  navigation,
+}) => {
   const dispatch = useDispatch();
-  const reservations = [
-    {
-      date: '2021-09-01',
-      time: '10:00',
-      city: 'Istanbul',
-      note: 'Notes',
-    },
-    {
-      date: '2021-09-01',
-      time: '10:00',
-      city: 'Istanbul',
-      note: 'Notes',
-    },
-    {
-      date: '2021-09-01',
-      time: '10:00',
-      city: 'Istanbul',
-      note: 'Notes',
-    },
-  ];
+
+  const data = useSelector(
+    (state: RootState) => state?.reservation?.reservations,
+  );
 
   const ListHeader = () => {
     return (
       <View style={styles.headerContainer}>
+        <Text style={styles.label}>User</Text>
         <Text style={styles.label}>Date</Text>
         <Text style={styles.label}>Time</Text>
         <Text style={styles.label}>City</Text>
@@ -38,13 +31,20 @@ const ReservationsScreen = () => {
     );
   };
 
+  const handleNavigationDetail = (item: any) => {
+    navigation.navigate('ReservationDetails', { reservation: item });
+  };
+
   return (
     <View style={styles.screen}>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
-        data={reservations}
+        data={data}
         renderItem={({ item }) => (
-          <ReservationCard item={item} onPress={() => console.log('Pressed')} />
+          <ReservationCard
+            item={item}
+            onPress={() => handleNavigationDetail(item)}
+          />
         )}
         ListHeaderComponent={<ListHeader />}
       />
