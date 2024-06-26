@@ -51,6 +51,10 @@ export const styles = StyleSheet.create({
     backgroundColor: colorScheme.primary.greenBunny[50],
     width: '100%',
   },
+  disabledButton: {
+    backgroundColor: colorScheme.primary.darkBunny[30],
+    width: '100%',
+  },
   input: {
     height: 48,
     width: '100%',
@@ -65,5 +69,16 @@ export const styles = StyleSheet.create({
   inputContainer: {
     gap: spacing[2],
     width: '100%',
+  },
+  outlinedButton: {
+    backgroundColor: 'transparent',
+    width: '100%',
+  },
+  coloredText: {
+    color: colorScheme.primary.greenBunny[50],
+  },
+  buttonContainer: {
+    width: '100%',
+    gap: spacing[1],
   },
 });

@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     justifyContent: justifyContent.center,
   },
   disabledButton: {
-    backgroundColor: colorScheme.primary.darkBunny[50],
+    backgroundColor: colorScheme.primary.darkBunny[30],
     width: '100%',
   },
   filledButton: {
@@ -74,5 +74,16 @@ export const styles = StyleSheet.create({
   },
   inputSubcontainer: {
     gap: spacing[1],
+  },
+  footerContainer: {
+    width: '100%',
+    gap: spacing[2],
+  },
+  textButton: {
+    backgroundColor: 'transparent',
+    width: '100%',
+  },
+  coloredText: {
+    color: colorScheme.primary.greenBunny[50],
   },
 });

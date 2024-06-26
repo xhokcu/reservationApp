@@ -58,7 +58,7 @@ const CreateReservationScreen: React.FC = () => {
           />
         </View>
         <View>
-          <Text>Date</Text>
+          <Text>Date*</Text>
           <TextInput
             style={styles.input}
             placeholder="Date"
@@ -69,7 +69,7 @@ const CreateReservationScreen: React.FC = () => {
           />
         </View>
         <View>
-          <Text>Time</Text>
+          <Text>Time*</Text>
           <TextInput
             style={styles.input}
             placeholder="Enter time"
@@ -80,7 +80,7 @@ const CreateReservationScreen: React.FC = () => {
           />
         </View>
         <View>
-          <Text> City</Text>
+          <Text>City*</Text>
           <TextInput
             style={styles.input}
             placeholder="Enter city"
@@ -91,7 +91,7 @@ const CreateReservationScreen: React.FC = () => {
           />
         </View>
         <View>
-          <Text> Note</Text>
+          <Text>Note*</Text>
           <TextInput
             style={styles.input}
             placeholder="Enter note"

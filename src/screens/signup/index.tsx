@@ -3,8 +3,13 @@ import { styles } from './styles';
 import { useState } from 'react';
 import CustomButton from 'components/button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-const SignupScreen = () => {
+interface SignupScreenProps {
+  navigation: StackNavigationProp<any, any>;
+}
+
+const SignupScreen: React.FC<SignupScreenProps> = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -23,6 +28,10 @@ const SignupScreen = () => {
     setEmail('');
     setUsername('');
     setPassword('');
+  };
+
+  const handleGoBack = () => {
+    navigation.goBack();
   };
 
   const isButtonDisabled = email === '' || username === '' || password === '';
@@ -89,15 +98,22 @@ const SignupScreen = () => {
           secureTextEntry
         />
       </View>
-
-      <CustomButton
-        disabled={isButtonDisabled}
-        buttonStyle={
-          isButtonDisabled ? styles.disabledButton : styles.filledButton
-        }
-        title="Sign up"
-        onPress={handleSignup}
-      />
+      <View style={styles.footerContainer}>
+        <CustomButton
+          disabled={isButtonDisabled}
+          buttonStyle={
+            isButtonDisabled ? styles.disabledButton : styles.filledButton
+          }
+          title="Sign up"
+          onPress={handleSignup}
+        />
+        <CustomButton
+          buttonStyle={styles.textButton}
+          textStyle={styles.coloredText}
+          title="Go Back"
+          onPress={handleGoBack}
+        />
+      </View>
     </View>
   );
 };

@@ -18,7 +18,6 @@ export const loginRoutes = [
   {
     name: LOGIN_NAV.LOGIN,
     component: LoginScreen,
-
     options: {
       headerShown: false,
     },

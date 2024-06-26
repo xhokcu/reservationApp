@@ -29,6 +29,10 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     setPassword('');
   };
 
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
+
   const handleLogin = async () => {
     try {
       const storedUsers = await AsyncStorage.getItem('users');
@@ -59,6 +63,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       Alert.alert('Error', 'Failed to log in. Please try again.');
     }
   };
+  const isDisabled = !email || !password;
 
   return (
     <View style={styles.screen}>
@@ -86,11 +91,20 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
           secureTextEntry
         />
       </View>
-      <CustomButton
-        buttonStyle={styles.filledButton}
-        title="Login"
-        onPress={handleLogin}
-      />
+      <View style={styles.buttonContainer}>
+        <CustomButton
+          disabled={isDisabled}
+          buttonStyle={isDisabled ? styles.disabledButton : styles.filledButton}
+          title="Login"
+          onPress={handleLogin}
+        />
+        <CustomButton
+          buttonStyle={styles.outlinedButton}
+          textStyle={styles.coloredText}
+          title="Go Back"
+          onPress={handleGoBack}
+        />
+      </View>
     </View>
   );
 };

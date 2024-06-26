@@ -8,12 +8,11 @@ export default function LoginNavigations() {
     <Stack.Navigator
       screenOptions={{
         headerBackTitle: 'Back',
-        headerShown: false,
-        headerTitleAlign: 'center',
-        headerTintColor: 'black',
-        headerStyle: { backgroundColor: '#D0261C' },
-        headerShadowVisible: false,
-        headerBackTitleVisible: false,
+        // headerShown: false,
+        // headerTitleAlign: 'center',
+        // headerTintColor: 'black',
+        // headerStyle: { backgroundColor: '#D0261C' },
+        // headerShadowVisible: false,
       }}
     >
       {loginRoutes.map((item: any, index: any) => {
