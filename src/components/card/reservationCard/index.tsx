@@ -13,10 +13,14 @@ const ReservationCard: React.FC<IReservationCardProps> = ({
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
-        <Text style={styles.text}>{item.username}</Text>
-        <Text style={styles.text}>{formattedDate}</Text>
-        <Text style={styles.text}>{item.time}</Text>
-        <Text style={styles.text}>{item.city.name}</Text>
+        <Text style={styles.smallText}>{item.username}</Text>
+        <Text style={styles.largeText} numberOfLines={2}>
+          {formattedDate}
+        </Text>
+        <Text style={styles.mediumText}>{item.time}</Text>
+        <Text style={styles.largeText} numberOfLines={1} ellipsizeMode="tail">
+          {item.city.name}
+        </Text>
       </View>
     </TouchableOpacity>
   );

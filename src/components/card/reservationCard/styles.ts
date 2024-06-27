@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: flexDirection.row,
-    alignItems: alignItems.center,
+    alignItems: alignItems.flexStart,
     borderRadius: borderRadius[2],
     paddingVertical: spacing[4],
     paddingHorizontal: spacing[4],
@@ -23,12 +23,22 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     backgroundColor: 'white',
-    gap: spacing[4],
+    gap: spacing[1],
     marginBottom: spacing[4],
   },
-  text: {
-    flex: 1,
+  smallText: {
     fontFamily: fonts.regular,
     fontSize: fontSizes.heading.h7,
+    flex: 0.5,
+  },
+  mediumText: {
+    fontFamily: fonts.regular,
+    fontSize: fontSizes.heading.h7,
+    flex: 1,
+  },
+  largeText: {
+    fontFamily: fonts.regular,
+    fontSize: fontSizes.heading.h7,
+    flex: 2,
   },
 });
