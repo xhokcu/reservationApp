@@ -31,6 +31,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 import { login } from 'store/features/auth/authSlice';
 import { setReservations } from 'store/features/reservation/reservationSlice';
+import LoadingScreen from 'components/loading';
 
 export default function App() {
   useEffect(() => {
@@ -85,6 +86,10 @@ export default function App() {
     WorkSans_800ExtraBold_Italic,
     WorkSans_900Black_Italic,
   });
+
+  if (!fontsLoaded) {
+    return <LoadingScreen />;
+  }
   return (
     <NavigationContainer>
       <Provider store={store}>
