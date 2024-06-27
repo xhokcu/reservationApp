@@ -1,45 +1,76 @@
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, Alert } from 'react-native';
 import { styles } from './styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CustomButton from 'components/button';
 import { useDispatch, useSelector } from 'react-redux';
 import { addReservation } from 'store/features/reservation/reservationSlice';
 import { RootState } from 'store/store';
 import uuid from 'react-native-uuid';
+import { Dropdown } from 'react-native-element-dropdown';
+import { ICity } from 'types/ICity';
+import axios from 'axios';
+import DatePickerComponent from 'components/datetimepicker';
 
 const CreateReservationScreen: React.FC = () => {
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState<Date | null>(null);
   const [time, setTime] = useState('');
   const [note, setNote] = useState('');
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState<ICity | null>(null);
 
-  const isButtonDisabled =
-    date === '' || time === '' || note === '' || city === '';
+  const isButtonDisabled = date === '' || time === '' || note === '' || !city;
 
   const dispatch = useDispatch();
+
+  const [cities, setCities] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await axios.get(
+          'https://turkiyeapi.dev/api/v1/provinces',
+        );
+        const filteredData = response.data.data.map((city: any) => {
+          return {
+            id: uuid.v4() as string,
+            name: city.name,
+            latitude: city.coordinates.latitude,
+            longitude: city.coordinates.longitude,
+          };
+        });
+        setCities(filteredData); // Verilerin bulunduğu yeri kontrol edin ve doğru anahtarı kullanın.
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCities();
+  }, []);
 
   const currentUser = useSelector(
     (state: RootState) => state?.auth?.authData?.userName,
   );
 
   const handleReset = () => {
-    setDate('');
+    setDate(null);
     setTime('');
     setNote('');
-    setCity('');
+    setCity(null);
   };
 
   const handleCreateReservation = () => {
     const newReservation = {
-      id: uuid.v4(),
+      id: uuid.v4() as string,
       username: currentUser || '',
       date,
       time,
       note,
-      city,
+      city: city as ICity,
     };
-
     dispatch(addReservation(newReservation));
+    Alert.alert('Success', 'Reservation created successfully');
     handleReset();
   };
 
@@ -57,37 +88,55 @@ const CreateReservationScreen: React.FC = () => {
             selectionColor="#3498db"
           />
         </View>
-        <View>
-          <Text>Date*</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Date"
-            placeholderTextColor="#cccccc"
-            onChangeText={text => setDate(text)}
-            value={date}
-            selectionColor="#3498db"
-          />
+        <View style={styles.dateTimeContainer}>
+          <View style={styles.dateContainer}>
+            <Text>Date*</Text>
+            <DatePickerComponent
+              mode="date"
+              onChange={(event, selectedDate) => {
+                if (selectedDate) {
+                  setDate(selectedDate);
+                }
+              }}
+            />
+          </View>
+          <View style={styles.dateContainer}>
+            <Text>Time*</Text>
+            <DatePickerComponent
+              mode="time"
+              onChange={(event, selectedDate) => {
+                const selectedTime = selectedDate?.toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                });
+                if (selectedTime) {
+                  setTime(selectedTime);
+                }
+              }}
+            />
+          </View>
         </View>
-        <View>
-          <Text>Time*</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter time"
-            placeholderTextColor="#cccccc"
-            onChangeText={text => setTime(text)}
-            value={time}
-            selectionColor="#3498db"
-          />
-        </View>
+
         <View>
           <Text>City*</Text>
-          <TextInput
+          <Dropdown
             style={styles.input}
-            placeholder="Enter city"
-            placeholderTextColor="#cccccc"
-            onChangeText={text => setCity(text)}
+            placeholderStyle={styles.placeholderStyle}
+            data={cities}
+            maxHeight={300}
+            labelField="name"
+            valueField="id"
+            searchPlaceholder="Search..."
+            placeholder="Select City"
             value={city}
-            selectionColor="#3498db"
+            onChange={(item: ICity) =>
+              setCity({
+                id: item.id,
+                name: item.name,
+                latitude: item.latitude,
+                longitude: item.longitude,
+              } as ICity)
+            }
           />
         </View>
         <View>

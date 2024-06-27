@@ -1,8 +1,10 @@
+import { ICity } from './ICity';
+
 export interface IReservation {
   id: string;
   username: string;
-  date: string;
+  date: Date;
   time: string;
   note: string;
-  city: string;
+  city: ICity;
 }

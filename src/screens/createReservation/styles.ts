@@ -77,7 +77,18 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   inputContainer: {
-    gap: spacing[2],
+    gap: spacing[4],
     width: '100%',
+  },
+  placeholderStyle: {
+    color: '#cccccc',
+  },
+  dateContainer: {
+    flexDirection: flexDirection.row,
+    alignItems: alignItems.flexStart,
+  },
+  dateTimeContainer: {
+    flexDirection: flexDirection.row,
+    justifyContent: justifyContent.spaceBetween,
   },
 });
