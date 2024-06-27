@@ -6,10 +6,6 @@ import { logout } from 'store/features/auth/authSlice';
 import ReservationCard from 'components/card/reservationCard';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootState } from 'store/store';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { setReservations } from 'store/features/reservation/reservationSlice';
 
 interface ReservationsScreenProps {
   navigation: StackNavigationProp<any, any>;

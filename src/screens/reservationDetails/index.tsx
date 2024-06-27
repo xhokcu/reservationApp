@@ -12,8 +12,6 @@ import {
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootState } from 'store/store';
 import EditReservationForm from 'components/editReservationForm';
-import axios from 'axios';
-import uuid from 'react-native-uuid';
 import useFetchCities from 'src/hooks/useFetchCities';
 
 type RootStackParamList = {
@@ -33,8 +31,6 @@ const ReservationDetailsScreen: React.FC<ReservationDetailsScreenProps> = ({
 
   const dispatch = useDispatch();
 
-  const { cities } = useFetchCities();
-
   const [date, setDate] = useState(reservation.date);
   const [time, setTime] = useState(reservation.time);
   const [city, setCity] = useState(reservation.city);
@@ -46,6 +42,8 @@ const ReservationDetailsScreen: React.FC<ReservationDetailsScreenProps> = ({
   );
   const isButtonDisabled = !date || time === '' || note === '' || !city;
   const isEditable = username === currentUser;
+
+  const { cities } = useFetchCities();
 
   const handleDeleteReservation = () => {
     dispatch(deleteReservation(reservation.id));
