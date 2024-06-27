@@ -10,6 +10,8 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { ICity } from 'types/ICity';
 import axios from 'axios';
 import DatePickerComponent from 'components/datetimepicker';
+import { IReservation } from 'types/IReservation';
+import useFetchCities from 'src/hooks/useFetchCities';
 
 const CreateReservationScreen: React.FC = () => {
   const [date, setDate] = useState<Date | null>(null);
@@ -20,34 +22,7 @@ const CreateReservationScreen: React.FC = () => {
   const isButtonDisabled = !date || time === '' || note === '' || !city;
 
   const dispatch = useDispatch();
-
-  const [cities, setCities] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchCities = async () => {
-      try {
-        const response = await axios.get(
-          'https://turkiyeapi.dev/api/v1/provinces',
-        );
-        const filteredData = response.data.data.map((city: any) => {
-          return {
-            id: uuid.v4() as string,
-            name: city.name,
-            latitude: city.coordinates.latitude,
-            longitude: city.coordinates.longitude,
-          };
-        });
-        setCities(filteredData); // Verilerin bulunduğu yeri kontrol edin ve doğru anahtarı kullanın.
-      } catch (error) {
-        console.error('Error fetching cities:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCities();
-  }, []);
+  const { cities } = useFetchCities();
 
   const currentUser = useSelector(
     (state: RootState) => state?.auth?.authData?.userName,
@@ -64,7 +39,7 @@ const CreateReservationScreen: React.FC = () => {
     const newReservation = {
       id: uuid.v4() as string,
       username: currentUser || '',
-      date,
+      date: date as Date,
       time,
       note,
       city: city as ICity,

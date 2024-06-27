@@ -37,6 +37,7 @@ const EditReservationForm: React.FC<EditReservationFormProps> = ({
     (state: RootState) => state.auth.authData?.userName,
   );
   const formattedDate = moment(date).format('MMMM Do YYYY');
+  const parsedDate = date instanceof Date ? date : new Date(date as string);
 
   return (
     <View style={styles.inputContainer}>
@@ -62,7 +63,7 @@ const EditReservationForm: React.FC<EditReservationFormProps> = ({
                   setDate(selectedDate);
                 }
               }}
-              value={date}
+              value={parsedDate}
             />
           ) : (
             <View style={styles.inActiveContainer}>
@@ -85,7 +86,7 @@ const EditReservationForm: React.FC<EditReservationFormProps> = ({
                   setTime(selectedTime);
                 }
               }}
-              value={time}
+              value={time as string}
             />
           ) : (
             <View style={styles.inActiveContainer}>
@@ -105,7 +106,6 @@ const EditReservationForm: React.FC<EditReservationFormProps> = ({
           labelField="name"
           valueField="id"
           placeholder={city?.name || 'Select city'}
-          // defaultValue={city}
           value={city}
           onChange={(item: ICity) =>
             setCity({

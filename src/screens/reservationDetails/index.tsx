@@ -14,6 +14,7 @@ import { RootState } from 'store/store';
 import EditReservationForm from 'components/editReservationForm';
 import axios from 'axios';
 import uuid from 'react-native-uuid';
+import useFetchCities from 'src/hooks/useFetchCities';
 
 type RootStackParamList = {
   ReservationDetails: { reservation: IReservation };
@@ -30,32 +31,9 @@ const ReservationDetailsScreen: React.FC<ReservationDetailsScreenProps> = ({
 }) => {
   const { reservation } = route?.params;
 
-  const [cities, setCities] = useState([]);
-
-  useEffect(() => {
-    const fetchCities = async () => {
-      try {
-        const response = await axios.get(
-          'https://turkiyeapi.dev/api/v1/provinces',
-        );
-        const filteredData = response.data.data.map((city: any) => {
-          return {
-            id: uuid.v4() as string,
-            name: city.name,
-            latitude: city.coordinates.latitude,
-            longitude: city.coordinates.longitude,
-          };
-        });
-        setCities(filteredData); // Verilerin bulunduğu yeri kontrol edin ve doğru anahtarı kullanın.
-      } catch (error) {
-        console.error('Error fetching cities:', error);
-      }
-    };
-
-    fetchCities();
-  }, []);
-
   const dispatch = useDispatch();
+
+  const { cities } = useFetchCities();
 
   const [date, setDate] = useState(reservation.date);
   const [time, setTime] = useState(reservation.time);

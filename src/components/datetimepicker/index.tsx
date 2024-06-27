@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Platform, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { styles } from './styles';
@@ -6,15 +6,22 @@ import { styles } from './styles';
 interface IDatePickerComponentProps {
   mode: 'date' | 'time';
   onChange: (event: any, selectedDate?: Date) => void;
-  disabled: boolean;
+  disabled?: boolean;
+  value?: any;
 }
 
 const DatePickerComponent: React.FC<IDatePickerComponentProps> = ({
   mode,
   onChange,
   disabled,
+  value,
 }) => {
   const [date, setDate] = useState(new Date());
+  useEffect(() => {
+    if (value) {
+      // setDate(value);
+    }
+  }, [value]);
 
   const onDateChange = (event: any, selectedDate?: Date) => {
     const currentDate = selectedDate || date;
