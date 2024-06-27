@@ -4,40 +4,18 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "components/*": [
-        "src/components/*"
-      ],
-      "screens/*": [
-        "src/screens/*"
-      ],
-      "navigations/*": [
-        "src/navigations/*"
-      ],
-      "helpers/*": [
-        "src/helpers/*"
-      ],
-      "assets/*": [
-        "assets/*"
-      ],
-      "types/*": [
-        "src/types/*"
-      ],
-      "store/*": [
-        "src/store/*"
-      ],
-      "routes/*": [
-        "src/routes/*"
-      ],
-      "common/*": [
-        "src/common/*"
-      ],
-      "services/*": [
-        "src/services/*"
-      ]
+      "components/*": ["src/components/*"],
+      "config/*": ["src/config/*"],
+      "screens/*": ["src/screens/*"],
+      "navigations/*": ["src/navigations/*"],
+      "helpers/*": ["src/helpers/*"],
+      "assets/*": ["assets/*"],
+      "types/*": ["src/types/*"],
+      "store/*": ["src/store/*"],
+      "routes/*": ["src/routes/*"],
+      "common/*": ["src/common/*"],
+      "services/*": ["src/services/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"]
 }
