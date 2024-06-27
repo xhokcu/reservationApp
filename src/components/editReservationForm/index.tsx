@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Platform } from 'react-native';
 import { styles } from './styles';
 import DatePickerComponent from 'components/datetimepicker';
 import { Dropdown } from 'react-native-element-dropdown';
@@ -37,6 +37,10 @@ const EditReservationForm: React.FC<EditReservationFormProps> = ({
     (state: RootState) => state.auth.authData?.userName,
   );
   const formattedDate = moment(date).format('MMMM Do YYYY');
+  const [textDate, setTextDate] = useState('');
+  const [textTime, setTextTime] = useState('');
+
+  console.log('date', date);
 
   return (
     <View style={styles.inputContainer}>
@@ -51,49 +55,79 @@ const EditReservationForm: React.FC<EditReservationFormProps> = ({
           selectionColor="#3498db"
         />
       </View>
-      <View style={styles.dateTimeContainer}>
-        <View style={styles.dateContainer}>
-          <Text>Date*</Text>
-          {isEditable ? (
-            <DatePickerComponent
-              mode="date"
-              onChange={(event, selectedDate) => {
-                if (selectedDate) {
-                  setDate(selectedDate);
-                }
-              }}
-              value={date as Date}
-            />
-          ) : (
-            <View style={styles.inActiveContainer}>
-              <Text>{formattedDate}</Text>
-            </View>
-          )}
+      {Platform.OS === 'ios' && (
+        <View style={styles.dateTimeContainer}>
+          <View style={styles.dateContainer}>
+            <Text>Date*</Text>
+            {isEditable ? (
+              <DatePickerComponent
+                mode="date"
+                onChange={(event, selectedDate) => {
+                  if (selectedDate) {
+                    setDate(selectedDate);
+                  }
+                }}
+                value={date as Date}
+              />
+            ) : (
+              <View style={styles.inActiveContainer}>
+                <Text>{formattedDate}</Text>
+              </View>
+            )}
+          </View>
+          <View style={styles.dateContainer}>
+            <Text>Time*</Text>
+            {isEditable ? (
+              <DatePickerComponent
+                disabled={!isEditable}
+                mode="time"
+                onChange={(event, selectedDate) => {
+                  const selectedTime = selectedDate?.toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  });
+                  if (selectedTime) {
+                    setTime(selectedTime);
+                  }
+                }}
+                value={time as string}
+              />
+            ) : (
+              <View style={styles.inActiveContainer}>
+                <Text>{time}</Text>
+              </View>
+            )}
+          </View>
         </View>
-        <View style={styles.dateContainer}>
-          <Text>Time*</Text>
-          {isEditable ? (
-            <DatePickerComponent
-              disabled={!isEditable}
-              mode="time"
-              onChange={(event, selectedDate) => {
-                const selectedTime = selectedDate?.toLocaleTimeString([], {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                });
-                if (selectedTime) {
-                  setTime(selectedTime);
-                }
-              }}
-              value={time as string}
+      )}
+      {Platform.OS === 'android' && (
+        <View>
+          <View>
+            <Text>Date*</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter date"
+              placeholderTextColor="#cccccc"
+              onChangeText={text => setTextDate(text)}
+              value={textDate}
+              selectionColor="#3498db"
+              editable={isEditable}
             />
-          ) : (
-            <View style={styles.inActiveContainer}>
-              <Text>{time}</Text>
-            </View>
-          )}
+          </View>
+          <View>
+            <Text>Time*</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter time"
+              placeholderTextColor="#cccccc"
+              onChangeText={text => setTextTime(text)}
+              value={textTime}
+              selectionColor="#3498db"
+              editable={isEditable}
+            />
+          </View>
         </View>
-      </View>
+      )}
       <View>
         <Text>City*</Text>
         <Dropdown

@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Alert } from 'react-native';
+import { View, Text, TextInput, Alert, Platform } from 'react-native';
 import { styles } from './styles';
 import { useEffect, useState } from 'react';
 import CustomButton from 'components/button';
@@ -17,8 +17,13 @@ const CreateReservationScreen: React.FC = () => {
   const [time, setTime] = useState('');
   const [note, setNote] = useState('');
   const [city, setCity] = useState<ICity | null>(null);
+  const [textDate, setTextDate] = useState('');
+  const [textTime, setTextTime] = useState('');
 
-  const isButtonDisabled = !date || time === '' || note === '' || !city;
+  const isAndroid = Platform.OS === 'android';
+  const isButtonDisabled = isAndroid
+    ? !textDate || textTime === '' || note === '' || !city
+    : !date || time === '' || note === '' || !city;
 
   const dispatch = useDispatch();
   const { cities } = useFetchCities();
@@ -62,35 +67,62 @@ const CreateReservationScreen: React.FC = () => {
             selectionColor="#3498db"
           />
         </View>
-        <View style={styles.dateTimeContainer}>
-          <View style={styles.dateContainer}>
-            <Text>Date*</Text>
-            <DatePickerComponent
-              mode="date"
-              onChange={(event, selectedDate) => {
-                if (selectedDate) {
-                  setDate(selectedDate);
-                }
-              }}
-            />
+        {Platform.OS === 'ios' && (
+          <View style={styles.dateTimeContainer}>
+            <View style={styles.dateContainer}>
+              <Text>Date*</Text>
+              <DatePickerComponent
+                mode="date"
+                onChange={(event, selectedDate) => {
+                  if (selectedDate) {
+                    setDate(selectedDate);
+                  }
+                }}
+              />
+            </View>
+            <View style={styles.dateContainer}>
+              <Text>Time*</Text>
+              <DatePickerComponent
+                mode="time"
+                onChange={(event, selectedDate) => {
+                  const selectedTime = selectedDate?.toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  });
+                  if (selectedTime) {
+                    setTime(selectedTime);
+                  }
+                }}
+              />
+            </View>
           </View>
-          <View style={styles.dateContainer}>
-            <Text>Time*</Text>
-            <DatePickerComponent
-              mode="time"
-              onChange={(event, selectedDate) => {
-                const selectedTime = selectedDate?.toLocaleTimeString([], {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                });
-                if (selectedTime) {
-                  setTime(selectedTime);
-                }
-              }}
-            />
+        )}
+        {Platform.OS === 'android' && (
+          <View>
+            <View>
+              <Text>Date*</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter date"
+                placeholderTextColor="#cccccc"
+                onChangeText={text => setTextDate(text)}
+                value={textDate}
+                selectionColor="#3498db"
+              />
+            </View>
+            <View>
+              <Text>Time*</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter time"
+                placeholderTextColor="#cccccc"
+                onChangeText={text => setTextTime(text)}
+                value={textTime}
+                selectionColor="#3498db"
+              />
+            </View>
           </View>
-        </View>
-
+        )}
         <View>
           <Text>City*</Text>
           <Dropdown
