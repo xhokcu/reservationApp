@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { useFonts } from 'expo-font';
 import { store } from 'store/store';
 import { NavigationContainer } from '@react-navigation/native';
@@ -27,8 +27,39 @@ import {
   WorkSans_900Black_Italic,
 } from '@expo-google-fonts/work-sans';
 import { AppNavigations } from 'navigations/appNavigations';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect } from 'react';
+import { login } from 'store/features/auth/authSlice';
+import { setReservations } from 'store/features/reservation/reservationSlice';
 
 export default function App() {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const authData = await AsyncStorage.getItem('authData');
+        if (authData) {
+          const parsedAuthData = JSON.parse(authData);
+          store.dispatch(
+            login({
+              email: parsedAuthData.email,
+              userName: parsedAuthData.userName,
+            }),
+          );
+        }
+
+        const reservationData = await AsyncStorage.getItem('reservations');
+        if (reservationData) {
+          const parsedReservationData = JSON.parse(reservationData);
+          store.dispatch(setReservations(parsedReservationData));
+        }
+      } catch (error) {
+        console.error('Error loading data', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const [fontsLoaded] = useFonts({
     'AvertaStd-Semibold': require('./assets/fonts/AvertaStd-Semibold.otf'),
     'AvertaStd-Regular': require('./assets/fonts/AvertaStd-Regular.otf'),

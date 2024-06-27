@@ -6,11 +6,13 @@ import { styles } from './styles';
 interface IDatePickerComponentProps {
   mode: 'date' | 'time';
   onChange: (event: any, selectedDate?: Date) => void;
+  disabled: boolean;
 }
 
 const DatePickerComponent: React.FC<IDatePickerComponentProps> = ({
   mode,
   onChange,
+  disabled,
 }) => {
   const [date, setDate] = useState(new Date());
 
@@ -23,6 +25,7 @@ const DatePickerComponent: React.FC<IDatePickerComponentProps> = ({
   return (
     <View>
       <DateTimePicker
+        disabled={disabled}
         testID="dateTimePicker"
         value={date}
         mode={mode}

@@ -8,6 +8,7 @@ import { RootState } from 'store/store';
 import LoginNavigations from 'navigations/loginNavigations';
 import HomeNavigations from 'navigations/homeNavigations';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState } from 'react';
 
 export type ScreenNames = ['LoginStack', 'HomeStack'];
 export type RootStackParamList = Record<ScreenNames[number], undefined>;

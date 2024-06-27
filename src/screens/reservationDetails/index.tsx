@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Alert } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { IReservation } from 'types/IReservation';
@@ -11,6 +11,9 @@ import {
 } from 'store/features/reservation/reservationSlice';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootState } from 'store/store';
+import EditReservationForm from 'components/editReservationForm';
+import axios from 'axios';
+import uuid from 'react-native-uuid';
 
 type RootStackParamList = {
   ReservationDetails: { reservation: IReservation };
@@ -27,6 +30,31 @@ const ReservationDetailsScreen: React.FC<ReservationDetailsScreenProps> = ({
 }) => {
   const { reservation } = route?.params;
 
+  const [cities, setCities] = useState([]);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await axios.get(
+          'https://turkiyeapi.dev/api/v1/provinces',
+        );
+        const filteredData = response.data.data.map((city: any) => {
+          return {
+            id: uuid.v4() as string,
+            name: city.name,
+            latitude: city.coordinates.latitude,
+            longitude: city.coordinates.longitude,
+          };
+        });
+        setCities(filteredData); // Verilerin bulunduğu yeri kontrol edin ve doğru anahtarı kullanın.
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+      }
+    };
+
+    fetchCities();
+  }, []);
+
   const dispatch = useDispatch();
 
   const [date, setDate] = useState(reservation.date);
@@ -38,8 +66,7 @@ const ReservationDetailsScreen: React.FC<ReservationDetailsScreenProps> = ({
   const currentUser = useSelector(
     (state: RootState) => state.auth.authData?.userName,
   );
-  const isButtonDisabled =
-    date === '' || time === '' || note === '' || city === '';
+  const isButtonDisabled = !date || time === '' || note === '' || !city;
   const isEditable = username === currentUser;
 
   const handleDeleteReservation = () => {
@@ -49,7 +76,6 @@ const ReservationDetailsScreen: React.FC<ReservationDetailsScreenProps> = ({
   };
 
   const handleUpdateReservation = () => {
-    // Update reservation logic goes here
     const updatedReservation = {
       ...reservation,
       date,
@@ -60,71 +86,22 @@ const ReservationDetailsScreen: React.FC<ReservationDetailsScreenProps> = ({
     dispatch(updateReservation(updatedReservation));
     Alert.alert('Reservation updated successfully');
   };
+  const reservationFormProps = {
+    date,
+    time,
+    note,
+    city,
+    setDate,
+    setTime,
+    setCity,
+    setNote,
+    cities,
+    isEditable,
+  };
 
   return (
     <View style={styles.screen}>
-      <View>
-        <View>
-          <Text>User</Text>
-          <TextInput
-            style={styles.disabledInput}
-            placeholder="Date"
-            placeholderTextColor="#cccccc"
-            onChangeText={text => setDate(text)}
-            value={username}
-            selectionColor="#3498db"
-            editable={false}
-          />
-        </View>
-        <View>
-          <Text>Date</Text>
-          <TextInput
-            style={isEditable ? styles.input : styles.disabledInput}
-            placeholder="Date"
-            placeholderTextColor="#cccccc"
-            onChangeText={text => setDate(text)}
-            value={date}
-            selectionColor="#3498db"
-            editable={isEditable}
-          />
-        </View>
-        <View>
-          <Text>Time</Text>
-          <TextInput
-            style={isEditable ? styles.input : styles.disabledInput}
-            placeholder="Enter time"
-            placeholderTextColor="#cccccc"
-            onChangeText={text => setTime(text)}
-            value={time}
-            selectionColor="#3498db"
-            editable={isEditable}
-          />
-        </View>
-        <View>
-          <Text>City</Text>
-          <TextInput
-            style={isEditable ? styles.input : styles.disabledInput}
-            placeholder="Enter city"
-            placeholderTextColor="#cccccc"
-            onChangeText={text => setCity(text)}
-            value={city}
-            selectionColor="#3498db"
-            editable={isEditable}
-          />
-        </View>
-        <View>
-          <Text>Note</Text>
-          <TextInput
-            style={isEditable ? styles.input : styles.disabledInput}
-            placeholder="Enter note"
-            placeholderTextColor="#cccccc"
-            onChangeText={text => setNote(text)}
-            value={note}
-            selectionColor="#3498db"
-            editable={isEditable}
-          />
-        </View>
-      </View>
+      <EditReservationForm {...reservationFormProps} />
       {isEditable && (
         <View style={styles.buttonContainer}>
           <CustomButton
@@ -134,7 +111,9 @@ const ReservationDetailsScreen: React.FC<ReservationDetailsScreenProps> = ({
           />
           <CustomButton
             disabled={isButtonDisabled}
-            buttonStyle={styles.filledButton}
+            buttonStyle={
+              isButtonDisabled ? styles.disabledButton : styles.filledButton
+            }
             title="Save"
             onPress={handleUpdateReservation}
           />

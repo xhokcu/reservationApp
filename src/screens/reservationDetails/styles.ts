@@ -56,4 +56,8 @@ export const styles = StyleSheet.create({
     color: '#333333',
     backgroundColor: colorScheme.primary.darkBunny[20],
   },
+  disabledButton: {
+    backgroundColor: colorScheme.primary.darkBunny[20],
+    flex: 1,
+  },
 });

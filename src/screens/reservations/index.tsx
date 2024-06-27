@@ -54,7 +54,9 @@ const ReservationsScreen: React.FC<ReservationsScreenProps> = ({
       />
       <CustomButton
         buttonStyle={styles.outlineButton}
-        onPress={() => dispatch(logout())}
+        onPress={() => {
+          dispatch(logout());
+        }}
         textStyle={styles.logoutText}
         title={'Logout'}
       />

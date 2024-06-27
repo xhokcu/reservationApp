@@ -17,7 +17,7 @@ const CreateReservationScreen: React.FC = () => {
   const [note, setNote] = useState('');
   const [city, setCity] = useState<ICity | null>(null);
 
-  const isButtonDisabled = date === '' || time === '' || note === '' || !city;
+  const isButtonDisabled = !date || time === '' || note === '' || !city;
 
   const dispatch = useDispatch();
 
