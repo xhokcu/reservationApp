@@ -1,22 +1,11 @@
 import { StyleSheet } from 'react-native';
 import { theme } from 'common/theme/theme';
 
-const {
-  borderRadius,
-  colorScheme,
-  spacing,
-  fonts,
-  fontSizes,
-  alignItems,
-  justifyContent,
-  flexDirection,
-} = theme.components;
+const { colorScheme, spacing, flexDirection } = theme.components;
 
 export const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    // alignItems: alignItems.center,
-    // justifyContent: justifyContent.center,
     gap: spacing[5],
     padding: spacing[5],
   },
@@ -38,7 +27,6 @@ export const styles = StyleSheet.create({
   },
   errorButton: {
     backgroundColor: colorScheme.common.Error,
-    // width: '100%',
     flex: 1,
   },
   filledButton: {

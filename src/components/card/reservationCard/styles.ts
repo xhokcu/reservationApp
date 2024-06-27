@@ -8,7 +8,6 @@ const {
   fonts,
   fontSizes,
   alignItems,
-  justifyContent,
   flexDirection,
 } = theme.components;
 

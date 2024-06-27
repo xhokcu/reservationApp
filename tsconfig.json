@@ -8,13 +8,11 @@
       "config/*": ["src/config/*"],
       "screens/*": ["src/screens/*"],
       "navigations/*": ["src/navigations/*"],
-      "helpers/*": ["src/helpers/*"],
       "assets/*": ["assets/*"],
       "types/*": ["src/types/*"],
       "store/*": ["src/store/*"],
       "routes/*": ["src/routes/*"],
-      "common/*": ["src/common/*"],
-      "services/*": ["src/services/*"]
+      "common/*": ["src/common/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"]

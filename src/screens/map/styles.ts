@@ -3,61 +3,44 @@ import { theme } from 'common/theme/theme';
 
 const {
   borderRadius,
-  colorScheme,
   spacing,
-  fonts,
   fontSizes,
   alignItems,
   justifyContent,
-  flexDirection,
+  position,
 } = theme.components;
 
 export const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    justifyContent: justifyContent.flexEnd,
+    alignItems: alignItems.center,
   },
   map: {
     ...StyleSheet.absoluteFillObject,
   },
   selectedReservationContainer: {
-    position: 'absolute',
-    bottom: 20,
-    left: 20,
-    right: 20,
+    position: position.absolute,
+    bottom: spacing[4],
+    left: spacing[4],
+    right: spacing[4],
     backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 10,
+    padding: spacing[2],
+    borderRadius: borderRadius[2],
     elevation: 5,
   },
   selectedReservationText: {
-    fontSize: 16,
+    fontSize: fontSizes.heading.h7,
     marginBottom: 5,
   },
   closeButton: {
-    marginTop: 10,
+    marginTop: spacing[2],
     backgroundColor: '#DDDDDD',
-    padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
+    padding: spacing[2],
+    borderRadius: borderRadius[2],
+    alignItems: alignItems.center,
   },
   closeButtonText: {
-    fontSize: 16,
-  },
-  zoomButton: {
-    position: 'absolute',
-    top: 20,
-    zIndex: 1,
-    backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 10,
-    elevation: 5,
-  },
-  zoomButtonText: {
-    fontSize: 16,
+    fontSize: fontSizes.heading.h7,
   },
 });

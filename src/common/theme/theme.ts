@@ -1,4 +1,3 @@
-// create custom dark theme for the appRoutes using the theme provider
 import { FlexAlignType, FlexStyle, TextStyle } from 'react-native';
 
 export const theme = {

@@ -1,7 +1,6 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import homeRoutes from 'routes/homeRoutes'; // homeRoutes dosyasının doğru şekilde dışa aktarıldığından emin olun
+import homeRoutes from 'routes/homeRoutes';
 import { theme } from 'common/theme/theme';
 import { View } from 'react-native';
 

@@ -1,12 +1,9 @@
 import React from 'react';
 import { HOME_NAV } from 'common/constants';
-
-// Screens
 import ReservationsScreen from 'screens/reservations';
-import ReservationDetailsScreen from 'screens/reservationDetails';
 import CreateReservationScreen from 'screens/createReservation';
 import MapScreen from 'screens/map';
-import { ListIcon, MapIcon, CreateIcon } from 'assets/svg'; // Assuming ListIcon is your SVG component
+import { ListIcon, MapIcon, CreateIcon } from 'assets/svg';
 import { theme } from 'common/theme/theme';
 
 const { colorScheme } = theme.components;

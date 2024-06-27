@@ -1,6 +1,4 @@
-// Constants
 import { APP_NAV } from 'common/constants';
-// Screens
 import LoginNavigation from 'navigations/loginNavigations';
 import HomeNavigation from 'navigations/homeNavigations';
 

@@ -1,4 +1,3 @@
-// src/redux/slices/reservationsSlice.ts
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IReservation } from 'types/IReservation';

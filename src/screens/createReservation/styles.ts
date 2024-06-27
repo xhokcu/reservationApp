@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 import { theme } from 'common/theme/theme';
 
 const {
-  borderRadius,
   colorScheme,
   spacing,
   fonts,

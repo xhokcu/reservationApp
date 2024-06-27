@@ -10,7 +10,6 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { ICity } from 'types/ICity';
 import axios from 'axios';
 import DatePickerComponent from 'components/datetimepicker';
-import { IReservation } from 'types/IReservation';
 import useFetchCities from 'src/hooks/useFetchCities';
 
 const CreateReservationScreen: React.FC = () => {
